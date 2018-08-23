@@ -1,0 +1,123 @@
+
+<div ng-controller="headerController">
+    <header class="navbar navbar-static-top bs-docs-nav animated fadeInRight" id="top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse"
+                        data-target=".bs-navbar-collapse">
+                    <span class="sr-only">네비게이션 끄기/켜기</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="../" class="navbar-brand">ZotBooZa Coin Trade</a>
+            </div>
+            <nav class="collapse navbar-collapse bs-navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a style="padding: 15px" href="#/calculator">계산기</a>
+                    </li>
+                    <li>
+                        <a style="padding: 15px" href="../css/">벌고싶니?</a>
+                    </li>
+                    <li>
+                        <a style="padding: 15px" href="../components/">부자가</a>
+                    </li>
+                    <li>
+                        <a style="padding: 15px" href="../javascript/">되고싶니?</a>
+                    </li>
+                    <li>
+                        <a style="padding: 15px" href="../customize/">코인이나 사라</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a ng-show="!account.signed" href="/#/login">로그인</a></li>
+                    <li><a ng-show="account.signed" href="" ng-click="doLogout()">로그아웃</a></li>
+                    <li><a ng-show="!account.signed" href="/#/registration">회원가입</a></li>
+                    <li><a ng-show="account.signed" href="/#/login">마이페이지</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div ng-if="account.signed">
+        <header class="navbar navbar-static-top bs-docs-nav animated fadeInRight" ng-show="account.signed" role="banner">
+            <div class="container">
+                <nav class="collapse navbar-collapse bs-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <span class="asset-information"> 원화 : {{account.krw | number}} krw</span>
+                        </li>
+                        <li>
+                            <span class="asset-information"> 비트코인 : {{account.btc | number}} btc</span>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+    </div>
+</div>
+
+<div ui-view></div>
+
+<footer class="bs-docs-footer" style="margin-top: 0px; border-top: 0px" role="contentinfo">
+    <div class="container">
+        <div class="bs-docs-social">
+            <ul class="bs-docs-social-buttons">
+                <li>
+                    <iframe class="github-btn"
+                            src="http://ghbtns.com/github-btn.html?user=twbs&amp;repo=bootstrap&amp;type=watch&amp;count=true"
+                            width="100" height="20" title="Star on GitHub"></iframe>
+                </li>
+                <li>
+                    <iframe class="github-btn"
+                            src="http://ghbtns.com/github-btn.html?user=twbs&amp;repo=bootstrap&amp;type=fork&amp;count=true"
+                            width="102" height="20" title="Fork on GitHub"></iframe>
+                </li>
+                <li class="follow-btn">
+                    <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true"
+                            class="twitter-follow-button twitter-follow-button-rendered"
+                            title="Twitter Follow Button"
+                            src="http://platform.twitter.com/widgets/follow_button.c7112f7adf6a24ddcb78d834866e1439.en.html#dnt=false&amp;id=twitter-widget-0&amp;lang=en&amp;screen_name=getbootstrap&amp;show_count=true&amp;show_screen_name=true&amp;size=m&amp;dateTime=1509331445942"
+                            style="position: static; visibility: visible; width: 233px; height: 20px;"
+                            data-screen-name="getbootstrap"></iframe>
+                </li>
+                <li class="tweet-btn">
+                    <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true"
+                            class="twitter-share-button twitter-share-button-rendered twitter-tweet-button"
+                            title="Twitter Tweet Button"
+                            src="http://platform.twitter.com/widgets/tweet_button.c7112f7adf6a24ddcb78d834866e1439.en.html#dnt=false&amp;id=twitter-widget-1&amp;lang=en&amp;original_referer=http%3A%2F%2Fbootstrapk.com%2F&amp;related=mdo%3ACreator%20of%20Bootstrap&amp;size=m&amp;text=%EB%B6%80%ED%8A%B8%EC%8A%A4%ED%8A%B8%EB%9E%A9%20%C2%B7%20%EC%84%B8%EC%83%81%EC%97%90%EC%84%9C%20%EA%B0%80%EC%9E%A5%20%EC%9D%B8%EA%B8%B0%EC%9E%88%EB%8A%94%20%EB%AA%A8%EB%B0%94%EC%9D%BC%20%EC%9A%B0%EC%84%A0%EC%9D%B4%EB%A9%B0%2C%20%EB%B0%98%EC%9D%91%ED%98%95%EC%9D%B8%20%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C%20%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC.&amp;dateTime=1509331445943&amp;type=share&amp;url=http%3A%2F%2Fgetbootstrap.com%2F&amp;via=getbootstrap"
+                            style="position: static; visibility: visible; width: 61px; height: 20px;"
+                            data-url="http://getbootstrap.com/"></iframe>
+                </li>
+            </ul>
+        </div>
+
+        <p>세상의 모든 사랑으로 <a href="https://twitter.com/mdo" target="_blank">@mdo</a> <a href="https://twitter.com/fat"
+                                                                                     target="_blank">@fat</a>와 에 의해
+            디자인되고 만들어졌습니다.</p>
+        <p><a href="https://github.com/twbs/bootstrap/graphs/contributors">코드 기여자</a> 의 도움과 <a
+                href="https://github.com/orgs/twbs/people">코어 팀</a> 에 의해 유지보수 됩니다.</p>
+        <p>코드는 <a href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank">MIT</a>, 문서는 <a
+                href="http://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a> 에 의거하여 허가합니다.</p>
+        <p>이 문서는 <a href="https://www.facebook.com/zeroion">이지훈</a> 에 의해 번역 되었습니다.</p>
+        <ul class="bs-docs-footer-links text-muted">
+            <li>Currently v3.3.2</li>
+            <li>·</li>
+            <li><a href="https://github.com/twbs/bootstrap">GitHub</a></li>
+            <li>·</li>
+            <li><a href="../getting-started/#examples">예제들</a></li>
+            <li>·</li>
+            <li><a href="../2.3.2/">v2.3.2 문서</a></li>
+            <li>·</li>
+            <li><a href="../about/">소개</a></li>
+            <li>·</li>
+            <li><a href="http://expo.getbootstrap.com">전시관</a></li>
+            <li>·</li>
+            <li><a href="http://blog.getbootstrap.com">블로그</a></li>
+            <li>·</li>
+            <li><a href="https://github.com/twbs/bootstrap/issues">이슈</a></li>
+            <li>·</li>
+            <li><a href="https://github.com/twbs/bootstrap/releases">출시</a></li>
+        </ul>
+    </div>
+</footer>

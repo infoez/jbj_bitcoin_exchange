@@ -1,0 +1,198 @@
+
+
+<style>
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{
+        color : #ffffff;
+        background-color : #6f5499;
+    }
+
+    .nav>li>a {
+        position: relative;
+        display: block;
+        padding: 10px 15px;
+        color : #6f5499;
+        background-color : #ffffff;
+    }
+</style>
+
+<div ng-controller="welcomePageController" class="animated fadeInRight">
+
+    <main class="bs-docs-masthead" id="content" role="main" tabindex="-1">
+        <div class="container">
+            <span class="bs-docs-booticon bs-docs-booticon-lg bs-docs-booticon-outline">Z</span>
+            <p class="lead">부트스트랩은 반응형이며 모바일 우선인 웹프로젝트 개발을 위한 가장 인기있는 HTML, CSS, JS 프레임워크입니다.</p>
+            <p class="lead">
+                <a href="getting-started#download" class="btn btn-outline-inverse btn-lg"
+                   onclick="ga('send', 'event', 'Jumbotron actions', 'Download', 'Download 3.3.2');">부트스트랩 다운로드</a>
+            </p>
+            <p class="version">현재 v3.3.2</p>
+        </div>
+    </main>
+
+    <div class="bs-docs-featurette">
+        <div class="container">
+            <div class="col-md-3"></div>
+            <div class="col-md-5">
+
+                <uib-tabset active="active">
+                    <uib-tab index="0" heading="구매">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">구매</div>
+                            <div class="panel-body">
+                                <div class="row" style="padding: 5px">
+                                    <div class="col-md-4" style="text-align: left">
+                                        거래가능 금액 :
+                                    </div>
+                                    <div class="col-md-8" style="text-align: right">
+                                        {{account.krw == undefined ? 0 : account.krw | number}} krw
+                                    </div>
+                                </div>
+                                <div class="row" style="padding: 5px">
+                                    <div class="col-md-12" style="text-align: right">
+                                        <div class="form-group" style="text-align: left">
+                                            <label>입찰 금액</label>
+                                            <input type="text" class="form-control" style="text-align: right"
+                                                   ng-model="transaction.price">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding: 5px">
+                                    <div class="col-md-6">
+                                        <div class="form-group" style="text-align: left">
+                                            <label>코인 수량</label>
+                                            <div style="border : 1px solid #ccc; border-radius: 4px;">
+                                                <input type="text" class="form-control"
+                                                       style="text-align: right; border : none;"
+                                                       ng-model="transaction.quantity" ng-keyup="quantityOnChange()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" style="text-align: left">
+                                            <label>KRW</label>
+                                            <div style="border : 1px solid #ccc; border-radius: 4px;">
+                                                <input type="text" class="form-control"
+                                                       style="text-align: right; border : none"
+                                                       ng-model="transaction.krwPrice" ng-keyup="krwPriceOnChange()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding: 5px">
+                                    <button class="btn btn-primary" ng-click="bid()">구매</button>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                    <uib-tab index="1" heading="판매">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">판매</div>
+                            <div class="panel-body">
+                                <div class="row" style="padding: 5px">
+                                    <div class="col-md-4" style="text-align: left">
+                                        거래가능 금액 :
+                                    </div>
+                                    <div class="col-md-8" style="text-align: right">
+                                        {{account.krw == undefined ? 0 : account.krw | number}} krw
+                                    </div>
+                                </div>
+                                <div class="row" style="padding: 5px">
+                                    <div class="col-md-12" style="text-align: right">
+                                        <div class="form-group" style="text-align: left">
+                                            <label>입찰 금액</label>
+                                            <input type="text" class="form-control" style="text-align: right"
+                                                   ng-model="transaction.price">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding: 5px">
+                                    <div class="col-md-6">
+                                        <div class="form-group" style="text-align: left">
+                                            <label>코인 수량</label>
+                                            <div style="border : 1px solid #ccc; border-radius: 4px;">
+                                                <input type="text" class="form-control"
+                                                       style="text-align: right; border : none;"
+                                                       ng-model="transaction.quantity" ng-keyup="quantityOnChange()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group" style="text-align: left">
+                                            <label>KRW</label>
+                                            <div style="border : 1px solid #ccc; border-radius: 4px;">
+                                                <input type="text" class="form-control"
+                                                       style="text-align: right; border : none"
+                                                       ng-model="transaction.krwPrice" ng-keyup="krwPriceOnChange()">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding: 5px">
+                                    <button class="btn btn-primary" ng-click="ask()">판매</button>
+                                </div>
+                            </div>
+                        </div>
+                    </uib-tab>
+                </uib-tabset>
+
+
+            </div>
+            <div class="col-md-4">
+                <table class="table table-striped table-bordered table-hover table-sm ">
+                    <thead>
+                    <tr>
+                        <th>구매/판매</th>
+                        <th>가격</th>
+                        <th>수량</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="ask in orders.asks | orderBy:'price':true" ng-click="setPrice(ask.price)">
+                        <td>판매 ({{8 -$index}})</td>
+                        <td>{{ask.price | number}}</td>
+                        <td>{{ask.quantityLeft}}</td>
+                    </tr>
+                    <tr ng-repeat="bid in orders.bids" ng-click="setPrice(bid.price)">
+                        <td>구매 ({{$index + 1}})</td>
+                        <td>{{bid.price | number}}</td>
+                        <td>{{bid.quantityLeft}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="bs-docs-featurette">
+        <div class="container">
+            <h2 class="bs-docs-featurette-title">모든사람과 모든곳을 위해 설계되었습니다.</h2>
+            <p class="lead">부트스트랩은 프론트엔드 웹개발을 더 빠르고 쉽게 만들어줍니다. 모든 기술 수준의 사람들, 모든 형태의 기기들, 모든 크기의 프로젝트들을 위해 만들어졌습니다.</p>
+            <hr class="half-rule">
+            <div class="row">
+                <div class="col-sm-4">
+                    <img src="/client/img/sass-less.png" alt="Sass and Less support" class="img-responsive">
+                    <h3>프리프로세서</h3>
+                    <p>부트스트랩은 평범한 CSS 로 제공합니다만, 그것의 소스코드는 2개의 인기있는 CSS 프리프로세서인 <a href="../css/#less">Less</a> 와
+                        <a href="../css/#sass">Sass</a> 를 사용합니다. 신속하게 프리컴파일된 CSS 로 시작하거나 소스를 빌드하세요.
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <img src="/client/img/devices.png" alt="Responsive across devices" class="img-responsive">
+                    <h3>하나의 프레임워크, 모든 기기.<!--One framework, every device.--></h3>
+                    <p>부트스트랩은 웹사이트와 어플리케이션을 단일 코드 베이스로 CSS 미디어 쿼리를 이용하여 휴대폰에서부터 태블릿, 데스크탑까지 쉽고 효과적으로 크기를 조절합니다.</p>
+                </div>
+                <div class="col-sm-4">
+                    <img src="/client/img/components.png" alt="Components" class="img-responsive">
+                    <h3>많은 기능들<!--Full of features--></h3>
+                    <p>부트스트랩과 함께, 보통의 HTML 요소들, 맞춤형 HTML 과 CSS 콤포넌트들, 그리고 놀라운 jQuery 플러그인들로 광범위하고 아름다운 문서들을 가질 수
+                        있습니다.</p>
+                </div>
+            </div>
+
+            <hr class="half-rule">
+
+            <p class="lead">부트스트랩은 오픈소스 입니다. 깃허브에서 호스트되고, 개발되고, 유지보수 됩니다.
+                <!--Bootstrap is open source. It's hosted, developed, and maintained on GitHub.--></p>
+            <a href="https://github.com/twbs/bootstrap" class="btn btn-outline btn-lg">깃허브 프로젝트 보기</a>
+        </div>
+    </div>
+</div>

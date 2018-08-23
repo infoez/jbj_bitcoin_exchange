@@ -1,0 +1,30 @@
+<div ng-controller="loginController" class="animated fadeInRight">
+    <div class="bs-docs-featurette" style="background-color: #EEEFF0">
+        <div class="container" style="background-color: #fff; width : 400px">
+
+            <form name="loginForm" style="padding : 20px 20px">
+
+                <h3 style="text-align: left; color: #666666; margin-bottom : 20px">로그인</h3>
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" ng-model="account.email" placeholder="이메일을 입력 하세요" ng-required="true">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" ng-model="account.password" placeholder="비밀번호를 입력 하세요" ng-required="true">
+                </div>
+
+                <div class="form-actions" style="margin-bottom: 30px">
+                    <input type="submit" class="btn btn-primary btn_expand margin_top_10 form-control" value="로그인"
+                           tabindex="5"
+                           ng-click="doLogin()" ng-disabled="loginForm.$invalid">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

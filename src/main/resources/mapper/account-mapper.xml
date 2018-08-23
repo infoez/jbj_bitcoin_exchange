@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="accountMapper">
+
+    <insert id="registration">
+
+        INSERT INTO TB_ACCOUNT
+        (
+            inum,
+            email,
+            password
+        ) VALUES (
+            SEQ_ACCOUNT.nextval ,
+            #{email},
+            #{password}
+        )
+
+    </insert>
+
+    <select id="selectAccountByEmail" resultType="com.account.model.AccountVO">
+        select
+            INUM,
+            EMAIL,
+            USERNAME,
+            PHONE,
+            ADDRESS,
+            KRW,
+            BTC,
+            KRW_WAITING,
+            BTC_WAITING
+        from TB_ACCOUNT
+        where EMAIL = #{email}
+    </select>
+
+    <select id="selectAccountListByEmails" resultType="com.account.model.AccountVO">
+        SELECT
+            INUM,
+            EMAIL,
+            USERNAME,
+            KRW,
+            BTC,
+            KRW_WAITING,
+            BTC_WAITING
+        FROM TB_ACCOUNT
+        WHERE EMAIL IN (
+            <foreach collection="list" item="item" separator=",">
+                #{item}
+            </foreach>
+        )
+    </select>
+
+    <select id="login" resultType="com.account.model.AccountVO">
+        SELECT
+            INUM,
+            EMAIL,
+            USERNAME,
+            KRW,
+            BTC,
+            KRW_WAITING,
+            BTC_WAITING
+        FROM TB_ACCOUNT
+        WHERE EMAIL = #{email} and PASSWORD = #{password}
+    </select>
+</mapper>
+

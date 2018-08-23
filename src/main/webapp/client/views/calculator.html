@@ -1,0 +1,26 @@
+<div ng-controller="calculator">
+
+    <div ng-repeat="result in calculated">
+        {{result.coinName}} : {{result.marginGap}} %
+    </div>
+
+
+    <div>
+        <table>
+            <tr>
+                <td>coinName :</td><td><input ng-model="calculate.coinName"></td>
+            </tr>
+            <tr>
+                <td>cex :</td><td> <input ng-model="calculate.cex"></td>
+            </tr>
+            <tr>
+                <td>upbit :</td><td><input ng-model="calculate.upbit"></td>
+            </tr>
+            <tr>
+                <td colspan="2" style="text-align: right"><button ng-click="doCalculate()">calculate</button></td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>

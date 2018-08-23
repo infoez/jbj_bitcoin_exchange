@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bitcoinTransaction">
+
+    <update id="bitCoinSellerTransaction">
+        UPDATE tb_account SET krw = krw + ( #{price} * #{quantity} ),
+                              btc_waiting = btc_waiting - #{quantity}
+
+        WHERE email = #{seller}
+    </update>
+
+    <update id="bitCoinBuyerTransaction">
+
+        UPDATE tb_account SET krw_waiting = krw_waiting - ( #{price} * #{quantity} )
+                            , btc = btc + #{quantity}
+
+        WHERE email = #{buyer}
+
+    </update>
+
+    <insert id="insertBitCoinRecentTransaction">
+        INSERT INTO TB_TRANSACTION (TRAN_ID, order_id, price, amount, buyer, seller, datetime)
+        VALUES (seq_btc_tran_id.nextval, #{orderId}, #{price}, #{quantity}, #{buyer}, #{seller}, sysdate)
+    </insert>
+
+    <update id="krwToKrwWaiting">
+        <selectKey keyProperty="isEnough" resultType="boolean" order="BEFORE">
+            SELECT case when ( krw - ( #{price} * #{quantity} ) ) >= 0 then 1 else 0 end as isEnough FROM TB_ACCOUNT
+            where email = #{email}
+        </selectKey>
+        UPDATE TB_ACCOUNT SET krw = krw - ( #{price} * #{quantity} )
+        , krw_waiting = krw_waiting + ( #{price} * #{quantity} )
+
+        WHERE email = #{email}
+    </update>
+
+    <update id="btcToBtcWaiting">
+        <selectKey keyProperty="isEnough" resultType="boolean" order="BEFORE">
+            SELECT case when btc - #{quantity} >= 0 then 1 else 0 end as isEnough FROM TB_ACCOUNT where email =
+            #{email}
+        </selectKey>
+        UPDATE TB_ACCOUNT SET btc = btc - #{quantity}
+        , btc_waiting = btc_waiting + #{quantity}
+
+        WHERE email = #{email}
+    </update>
+
+    <update id="btcWaitingToBtc">
+        <selectKey keyProperty="isEnough" resultType="boolean" order="BEFORE">
+            SELECT case when BTC_WAITING - #{quantity} >= 0 then 1 else 0 end as isEnough FROM TB_ACCOUNT where email
+            = #{email}
+        </selectKey>
+        UPDATE TB_ACCOUNT SET btc = btc + #{quantity}
+        , btc_waiting = btc_waiting - #{quantity}
+
+        WHERE email = #{email}
+    </update>
+
+    <update id="krwWaitingToKrw">
+        <selectKey keyProperty="isEnough" resultType="boolean" order="BEFORE">
+            SELECT case when ( krw_waiting - ( #{price} * #{quantity} ) ) >= 0 then 1 else 0 end as isEnough FROM
+            tb_account WHERE email = #{email}
+        </selectKey>
+        UPDATE TB_ACCOUNT SET krw = krw + ( #{price} * #{quantity} )
+        , krw_waiting = krw_waiting - ( #{price} * #{quantity} )
+        WHERE email = #{email}
+    </update>
+
+    <insert id="insertOrder">
+        <selectKey keyProperty="orderId" resultType="String" order="BEFORE">
+            SELECT seq_btc_order_id.nextval FROM DUAL
+        </selectKey>
+        INSERT INTO tb_order (order_id, tran_type, price, quantity_original, quantity_left, email, dateTime,
+        end_tran_yn, coinid)
+        VALUES (#{orderId}, #{tranType}, #{price}, #{quantity}, #{quantity}, #{email}, sysdate, 'N', #{coinId})
+    </insert>
+
+    <update id="orderTransAction">
+        update TB_ORDER set quantity_left = quantity_left - #{quantity}
+                              , end_tran_yn = case when quantity_left - #{quantity} = 0 then 'Y' else 'N' end
+                              , end_tran_type = case when quantity_left - #{quantity} = 0 then 'soldout' else null end
+        WHERE ORDER_ID = #{orderId}
+    </update>
+
+    <select id="selectBtcOrderByOrderId" resultType="com.transaction.model.OrderVO">
+        select
+            order_id orderId,
+            tran_type tranType,
+            price price,
+            quantity_original originalQuantity,
+            quantity_left quantityLeft,
+            email,
+            datetime,
+            end_tran_yn endTranYn,
+            end_tran_type endTranType
+        FROM TB_ORDER where ORDER_ID = #{orderId}
+    </select>
+
+    <update id="deleteBtcOrder">
+        update TB_ORDER set end_tran_yn = 'Y', end_tran_type = 'cancel' WHERE order_id = #{orderId} AND tran_type = #{tranType} AND email = #{email} AND end_tran_yn = 'N'
+    </update>
+
+    <select id="selectBidsForSync" resultType="com.core.OrderVO">
+        SELECT
+          ORDER_ID orderId,
+          TRAN_TYPE tranType,
+          PRICE price,
+          QUANTITY_ORIGINAL,
+          QUANTITY_LEFT quantity,
+          EMAIL email,
+          DATETIME dateTime,
+          END_TRAN_YN endTranYn,
+          END_TRAN_TYPE endTranType,
+          rank() OVER (ORDER BY price desc, order_id desc )
+        FROM TB_ORDER a
+        WHERE END_TRAN_YN = 'N'
+          AND TRAN_TYPE = 'bid'
+    </select>
+
+    <select id="selectAsksForSync" resultType="com.core.OrderVO">
+        SELECT
+          ORDER_ID orderId,
+          TRAN_TYPE tranType,
+          PRICE price,
+          QUANTITY_ORIGINAL,
+          QUANTITY_LEFT quantity,
+          EMAIL email,
+          DATETIME dateTime,
+          END_TRAN_YN endTranYn,
+          END_TRAN_TYPE endTranType,
+          rank() OVER ( ORDER BY price asc, order_id desc )
+        FROM TB_ORDER a
+        WHERE END_TRAN_YN = 'N'
+          AND TRAN_TYPE = 'ask'
+    </select>
+
+</mapper>
+

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- MySQL -->
+    <bean id="dataSource-oracle" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="${Globals.Oracle.DriverClassName}"/>
+        <property name="url" value="${Globals.Oracle.Url}" />
+        <property name="username" value="${Globals.Oracle.UserName}"/>
+        <property name="password" value="${Globals.Oracle.Password}"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
+        <property name="numTestsPerEvictionRun" value="3"/>
+        <property name="minEvictableIdleTimeMillis" value="1800000"/>
+        <property name="validationQuery" value="SELECT 1 FROM DUAL"/>
+    </bean>
+
+    <!-- DataSource -->
+    <alias name="dataSource-${Globals.Oracle.DBType}" alias="dataSource"/>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="mapperLocations" value="classpath:/mapper/*-mapper.xml" />
+    </bean>
+
+    <bean id="sqlSession" name="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+
+    <!-- Trade -->
+    <!--<tx:advice id="txAdvice" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="*" propagation="REQUIRED" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="requiredTx" expression="execution(* com..*Impl.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="requiredTx" />
+    </aop:config>-->
+
+
+</beans>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="bitCoinBidAction" class="com.core.BidAction">
+        <constructor-arg index="0" ref="bitcoinTransactionDatabaseService"/>
+    </bean>
+
+    <bean id="bitCoinCancelBidAction" class="com.core.CancelBidAction">
+        <constructor-arg index="0" ref="bitcoinTransactionDatabaseService"/>
+    </bean>
+
+    <bean id="bitCoinAskAction" class="com.core.AskAction">
+        <constructor-arg index="0" ref="bitcoinTransactionDatabaseService"/>
+    </bean>
+
+    <bean id="bitCoinCancelAskAction" class="com.core.CancelAskAction">
+        <constructor-arg index="0" ref="bitcoinTransactionDatabaseService"/>
+    </bean>
+
+    <bean id="bitCoinSyncAction" class="com.core.SyncAction">
+        <constructor-arg index="0" ref="bitcoinTransactionDatabaseService"/>
+    </bean>
+
+    <bean id="bitCoinTransAction" class="com.core.Trade">
+        <constructor-arg index="0" ref="bitCoinBidAction"/>
+        <constructor-arg index="1" ref="bitCoinCancelBidAction"/>
+        <constructor-arg index="2" ref="bitCoinAskAction"/>
+        <constructor-arg index="3" ref="bitCoinCancelAskAction"/>
+        <constructor-arg index="4" ref="bitCoinSyncAction"/>
+    </bean>
+
+    <bean id="bitCoinTransactionService" class="com.transaction.service.impl.BitCoinTransactionServiceImpl"/>
+
+</beans>

@@ -1,0 +1,44 @@
+<div ng-controller="registrationController" class="animated fadeInRight">
+    <div class="bs-docs-featurette" style="background-color: #EEEFF0">
+        <div class="container" style="background-color: #fff; width : 500px">
+            <form name="registration" style="padding : 20px 20px">
+
+                <h3 style="text-align: left; color: #666666; margin-bottom : 20px">회원가입</h3>
+                <div class="form-group">
+                    <input type="email" name="email" class="form-control" ng-model="account.email"
+                           placeholder="이메일을 입력 하세요" ng-required="true">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control" ng-model="account.password" placeholder="비밀번호를 입력 하세요" ng-required="true" ng-minlength="6">
+                </div>
+                <div class="form-group">
+                    <input type="password" name="confirm" class="form-control" ng-model="account.confirm" placeholder="비밀번호를 입력 하세요" ng-required="true" ng-minlength="6">
+                </div>
+                <p style="color: #a94442;" ng-show="registration.email.$invalid && registration.email.$dirty">
+                    이메일을 확인해 주세요.
+                </p>
+                <p style="color: #a94442;" ng-show="registration.confirm.$invalid && registration.confirm.$dirty">
+                    비밀번호가 일치하지 않습니다.
+                </p>
+                <p>
+                    패스워드는 8자 이상, 대문자, 소문자, 숫자를 포함해 주세요.
+                </p>
+                <div class="alert alert-danger" role="alert">
+                    <small>KRW(원화)를 처음 입금할 경우, 96시간 동안 <b>가상화폐 출금 제한</b>이 걸리며, 96시간 후 <b>가상화폐 출금 요청</b>(전화통화) 절차를 거쳐야
+                        합니다.
+                        또한 인증 계좌가 아닌 계좌에서 입금 시 <b>인증 자료 제출</b>을 요구합니다. 이 절차는 보이스피싱/파밍 등 금융사기 예방을 위한 조치이오니 양해 부탁드립니다.
+                    </small>
+                </div>
+
+                <div class="form-actions">
+                    <input type="submit" class="btn btn-primary btn_expand margin_top_10 form-control" value="회원가입" tabindex="5"
+                           ng-click="submit()" ng-disabled="registration.$invalid" >
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+

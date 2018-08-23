@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html ng-app="inspinia">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Bootstrap, a sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.">
+    <meta name="keywords" content="HTML, CSS, JS, JavaScript, framework, bootstrap, front-end, frontend, web development">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+
+    <title>
+        좆부자 비트코인
+    </title>
+
+    <link href="/client/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/client/css/docs.min.css" rel="stylesheet">
+    <link href="/client/css/animate.css" rel="stylesheet">
+    <link href="/client/css/ngToast.min.css" rel="stylesheet">
+    <link href="/client/css/ngToast-animations.min.css" rel="stylesheet">
+
+    <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">-->
+
+</head>
+
+<style>
+
+    /*       .well[ui-view] {
+            height: 65px;
+        }
+
+        .ui-view-container {
+            position: relative;
+        }
+
+        [ui-view].ng-enter, [ui-view].ng-leave {
+            position: absolute;
+            left: 0;
+            right: 0;
+            -webkit-transition: all .5s ease-in-out;
+            -moz-transition: all .5s ease-in-out;
+            -o-transition: all .5s ease-in-out;
+            transition: all .5s ease-in-out;
+        }
+
+        [ui-view].ng-enter {
+            opacity: 0;
+            -webkit-transform: scale3d(0.5, 0.5, 0.5);
+            -moz-transform: scale3d(0.5, 0.5, 0.5);
+            transform: scale3d(0.5, 0.5, 0.5);
+        }
+
+        [ui-view].ng-enter-active {
+            opacity: 1;
+            -webkit-transform: scale3d(1, 1, 1);
+            -moz-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+
+        [ui-view].ng-leave {
+            opacity: 1;
+            -webkit-transform: translate3d(0, 0, 0);
+            -moz-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        [ui-view].ng-leave-active {
+            opacity: 0;
+            -webkit-transform: translate3d(100px, 0, 0);
+            -moz-transform: translate3d(100px, 0, 0);
+            transform: translate3d(100px, 0, 0);
+        }
+     */
+
+    .asset-information {
+        font-weight: 500;
+        padding: 15px;
+        line-height: 20px;
+        position: relative;
+        display: block;
+    }
+</style>
+
+<body>
+<toast></toast>
+<div ng-controller="mainController as main" class="bs-docs-home animated fadeInRight">
+    <div ui-view></div>
+</div>
+<script src="client/js/jquery/jquery-3.1.1.min.js"></script>
+<script src="client/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="client/js/bootstrap/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+
+<script src="client/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<script src="client/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="client/js/plugins/pace/pace.min.js"></script>
+<script src="http://cdn.jsdelivr.net/hammerjs/2.0.4/hammer.js"></script>
+
+<script src="client/js/angular/angular.min.js"></script>
+<script src="client/js/angular/angular-sanitize.js"></script>
+<script src="client/js/plugins/oclazyload/dist/ocLazyLoad.min.js"></script>
+<script src="client/js/angular-translate/angular-translate.min.js"></script>
+<script src="client/js/ui-router/angular-ui-router.min.js"></script>
+<script src="client/js/bootstrap/ui-bootstrap-tpls-1.1.2.min.js"></script>
+<script src="client/js/plugins/angular-idle/angular-idle.js"></script>
+<script src="client/js/angular/angular-animate.min.js"></script>
+<script src="client/js/angular/angular-cookies.min.js"></script>
+<script src="client/js/plugins/ngToast/ngToast.min.js"></script>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+<script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.5/angular-material.js"></script>-->
+
+
+<script src="client/js/app.js"></script>
+<script src="client/js/config.js"></script>
+<script src="client/js/directives.js"></script>
+<script src="client/js/services.js"></script>
+<script src="client/js/controllers.js"></script>
+
+</body>
+</html>
